@@ -1,0 +1,16 @@
+
+<% unless SOLR_URL.nil? -%>
+	<form method="get" id="side_search" action="/search">	
+		<input id="s" type="text" value="Search Connections" name="s" />
+		<input type="image" id="submit" src="/images/transparent.gif" />
+
+		<input type="radio" name="f[type_facet][]" value="All" <% if @type_facet =='All' || @type_facet.blank? %>checked<% end %>  class="fsb-radio" />
+		<label>All</label>		
+		<input type="radio" name="f[type_facet][]" value="Person" <% if @type_facet =='Person'%>checked<% end %>  class="fsb-radio" />
+		<label>Person</label>
+		<input type="radio" name="f[type_facet][]" value="Project" <% if @type_facet =='Project'%>checked<% end %>  class="fsb-radio" />
+		<label>Project</label> 
+		<input type="radio" name="f[type_facet][]" value="Organization" <% if @type_facet =='Organization'%>checked<% end %>  class="fsb-radio" />
+		<label>Organization</label> 
+	</form> 
+<% end -%>

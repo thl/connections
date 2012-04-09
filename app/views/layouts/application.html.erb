@@ -1,0 +1,174 @@
+<% if !params[:inline] 
+	if @current_style == :gallery -%><%= header(:class => 'gallery community', :id => 'interior') %>
+<% elsif @current_style == :details -%><%= header(:class => 'details community', :id => 'interior') %>
+<% elsif @current_style == :showview -%><%= header(:class => 'details community', :id => 'interior') %>
+<% else -%><%= header(:id => 'home', :class => 'community') %>
+<% end -%>
+<%  else %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="en" lang="en">
+<head>
+  <title><%= controller.controller_name.humanize %>: <%= controller.action_name.humanize %></title>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" /
+  <meta name="MSSmartTagsPreventParsing" content="TRUE">
+  <%= javascripts %>
+  <%= stylesheets %>
+
+</head>
+<% if @current_style == :gallery -%>
+  <body id="interior" class="gallery" >
+<% elsif @current_style == :details -%>
+  <body id="interior" class="details" >
+<% elsif @current_style == :showview -%>
+  <body id="interior" class="details" >	
+<% else -%>
+  <body id="home">
+<% end -%>
+<!--[if ie]><div id="ie-root"><![endif]--><!--[if ie 8]><div id="ie-root-8"><![endif]--><!--[if ie 7]><div id="ie-root-7"><![endif]--><!--[if gte ie 7]><div id="ie-root-gte7"><![endif]--><!--[if lte ie 7]><div id="ie-root-lte7"><![endif]--><!--[if lte ie 6]><div id="ie-root-lte6"><![endif]--> 
+<% end %> <!-- end header() -->
+
+<% if !params[:inline] %>
+<script type="text/javascript">
+$(document).ready(function () {
+$("#fxSideMenu").hide();
+$("#sideMenuLink").css("background-position", "0% 0%");});
+</script>
+<% end %>	
+<div class="shell-1">
+<%  if defined?(SOLR_URL) %>
+<%=   render :partial => 'layouts/search_script' %>
+<%  end -%>
+
+<%  if @login_enabled -%>
+<%    unless flash[:notice] and logged_in? -%>
+      <script type="text/javascript">
+      	// hide login and extra content when logged in for toggle effect
+    	//document.writeln('<style type="text/css"><!-- #login-wrapper, #overflow {display: none;} --></style>');	
+  	  </script>
+<%    end -%>
+<% 	end -%>
+	
+<%  if @current_style == :home -%>
+    <script type="text/javascript">
+	jQuery(document).ready(function() {
+		// initialize carousel
+        jQuery('#homepage_carousel').jcarousel({ scroll: 1, auto: 25 });
+	});
+    </script>
+<%  end -%>
+  
+<%  if @relation_browser_enabled -%>  <%# if @current_style == :home -%>
+<%=   render :partial => '/layouts/rb_header' %>
+<% 	end -%>
+
+<% unless params[:inline] %> <!-- when it's a normal window and will not display for floating window -->
+<%# unless true %>
+<% if @login_enabled -%>  <%# unless params[:inline] %>
+  	 <div id="login-wrapper">
+	   <div id="login">
+		 <div class="entry">
+		 </div>
+<% 		 if logged_in? -%>
+<%= 	   render :partial => '/common/login' %>
+<% 		 end -%>
+  	   </div>
+  	 </div>
+<% end -%>
+
+  <% unless params[:inline] %>
+  <div id="fathom-masthead-wrapper">
+	<div id="fathom-masthead">
+		<% if @nav_enabled -%>
+				<ul id="fathom-nav-wrapper">
+					<% first = true -%>
+					<% for nav_item in main_navigation_items -%>
+						<% 	
+							class_string = first ? "first " : ""
+							if @current_nav_item == nav_item[:id]
+								class_string << "current_page_item" 
+							else
+								class_string << "page_item"
+							end  
+							first = false
+						-%>
+						<li class="<%= class_string %>">
+						  <%#= link_to nav_item[:text], nav_item[:link] %>
+						  <%= link_to("<span>#{nav_item[:text]}</span>" , nav_item[:link]) %>
+						</li>
+					<% end -%>
+				</ul><!--END ul fathom-nav-wrapper -->
+		<% end -%>
+		
+		<div id="fathom-masthead-utility">
+		<%# if defined?(FATHOM_AUTHENTICATION) %>
+		<%# not using   if @login_enabled   since that is used only sin simpler_main for relationbrowser , sessions & users %>
+		
+		<% if defined?(SOLR_URL) %>
+		  <%=  render :partial => 'layouts/search' %>
+		<% end -%>
+		<% if !logged_in? -%>
+		  <p><a href="/signup" title="account registration">Register</a></p>
+		<% end %>
+		<% if logged_in? -%> 
+			<!-- <a href="#logout" id="login-toggle3">Log Out</a> -->
+		<% else -%>   
+            <% if defined?(SSL_ENABLED) %>
+				<%#=   render :partial => 'layouts/ssl_login' %>
+			<% end %>
+			  <p><%= link_to 'Login', login_page_path, :title => 'login'%></p>
+		<% end -%>
+		<%# end -%> <!-- if defined?(FATHOM_AUTHENTICATION)-->
+		
+		<% if defined?(SOLR_URL) %>
+			<p><%= link_to 'Advanced Search', search_path, :id => 'fathom-advanced-search', :title => 'Advanced Search'%></p>
+		<% end -%>
+		</div><!--END fathom-masthead-utility -->
+	</div><!--END fathom-MASTHEAD-->
+  </div><!--END fathom-MASTHEAD-WRAPPER-->
+  <% end -%>
+
+
+<!-- 
+<script>
+    $("#login-toggle3").click(function () {
+      $("#login-wrapper").slideToggle("slow");
+    });
+</script>
+-->
+
+
+<% end -%><!--END UNLESS params[:inline]  So the rest of the header and navigation will not show for floating window -->
+
+<!-- MAIN-WRAPPER -->
+<% if @relation_browser_enabled -%>
+	<div id="flash-wrapper">	
+		<%= yield %>
+	</div><!--END FLASH-WRAPPER-->
+<% else -%>
+	<div id="main-content-wrapper">
+	  <% if !defined?(FATHOM_AUTHENTICATION) %>
+		<div id="main">
+		 <%#= login_status_links -%>
+		  <div id="div_flash-notice"><p style="color: green"><%= flash[:notice] %></p></div>
+	  <% end -%>
+	  <%= yield %>
+	  <% if !defined?(FATHOM_AUTHENTICATION) %>  
+	    </div> <!-- end main -->
+	  <% end -%>
+	</div><!--END MAIN-CONTENT-WRAPPER-->
+<% end -%>
+
+</div> <!-- END SHELL-1 -->
+
+
+<!-- FOOTER -->
+<% unless params[:inline] %>
+<%= footer %>
+<% end %>
+
+
+<% if params[:inline]%>	
+  <!--[if ie]></div><![endif]-->
+  </body>
+</html>
+<% end %>

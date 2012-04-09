@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+bob_member_of_juxta:
+  project_id: 2
+  person_id: 1
+  relation_type_id: 1 
+  description: a test relation description
+  created_by: 1
+
+juxta_subproject_of_arp:
+  project_id: 2
+  organization_id: 4
+  created_by: 1
+  
+nick_member_of_arp:
+  organization_id: 4
+  person_id: 6
+  relation_type_id: 1 
+  created_by: 3
+
+nick_member_of_fathom:
+  tool_id: 100
+  person_id: 6
+  relation_type_id: 1
+  created_by: 1
+
+nick_member_of_juxta:
+  project_id: 2
+  person_id: 6
+  relation_type_id: 1 
+  created_by: 3

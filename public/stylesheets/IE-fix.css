@@ -1,0 +1,13 @@
+#home #homepage_carousel p {
+    width:380px;
+}
+
+#relationships-tab .gallery-button {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    overflow: display;
+}
+
+.item {
+    background-image: none !important;
+}

@@ -1,0 +1,29 @@
+<div id="posts" class="module">
+	
+	<h3><%= link_to 'Latest Posts', posts_path,  { :title => "Read Posts" } %></h3>
+	<div id="seeking" class="item">
+	  <% @posts = Post.find(:all, :limit => 5) %>
+	  <table class="home-posts-listing">
+		<tr>
+	        <th scope="col">Subject</th>
+	        <th scope="col">Author</th>
+	        <th scope="col">Category</th>
+	        <th scope="col">Posted</th>
+	        <th scope="col">Expires</th>
+	    </tr>
+	  <% if !@posts.empty? %>
+		  <%# Sort posts in reverse chronological order (newest first). %>
+	  <% for post in @posts.sort_by {|p| p.created_at}.reverse %>
+		  <tr>
+            <td><%= link_to post.subject, post_path(post) %></td>
+            <td><%= link_to entity_for_post(post).name, url_for(entity_for_post(post)) %></td>
+            <td><%= post.post_kind.post_kind_value %></td>
+            <td><%= post.created_at.strftime("%m/%d/%Y") %></td>
+            <td><%= post.expiration_date.strftime("%m/%d/%Y") %></td>
+          </tr>
+		  <% end -%>
+	   <% end -%>
+	</table>
+	
+	</div><!--END SEEKING-->
+</div>

@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+test:
+    id: 1
+    text: testing
+    person_profile_id: 1

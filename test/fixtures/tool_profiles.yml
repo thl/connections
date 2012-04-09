@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+sample_tool_one:
+  summary: MyText
+  home_page: MyString
+  features: MyText
+  technical_details: MyText
+  tips: MyText
+  reviews: MyText
+  support: MyText
+  tool_id: 100
+
+sample_tool_two:
+  summary: MyText
+  home_page: MyString
+  features: MyText
+  technical_details: MyText
+  tips: MyText
+  reviews: MyText
+  support: MyText
+  tool_id: 200

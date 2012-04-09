@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>Digital Humanities at UVA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" href="/stylesheets/global.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print" />
+
+<script type="text/javascript" src="/javascripts/jquery.js"></script>
+<script type="text/javascript" src="/javascripts/jquery-plugins.js"></script>
+
+<link rel="shortcut icon" href="/favicon.ico" />
+
+</head>
+
+<body id="home">
+	<div id="main-wrapper">
+            <div id="text_help_wrapper">
+            <h1 id="text_help">A Quick Reference to Rich Text Editing</h1>
+            <h3 id="title">Using <a href="http://whytheluckystiff.net/ruby/redcloth">RedCloth</a> and <a href="http://hobix.com/textile/quick.html">Textile</a></h3>
+<table>            
+<tr><td colspan=5><h3 class="help_head">Style</h3></td></tr>
+<tr><td><pre>I _believe_ every word.</pre></td><td>&rarr;</td><td class='example2'><p>I <em>believe</em> every word.</p></td></tr>
+<tr><td><pre>And then? She *fell*!</pre></td><td>&rarr;</td><td class='example2'><p>And then? She <strong>fell</strong>!</p></td></tr>
+<tr><td><pre>The code prints @"Hello world!"@</pre></td><td>&rarr;</td><td class='example2'><p>The code prints <code>"Hello World!"</code></p></td></tr>
+<tr><td><pre>You are a +pleasant+ child.</pre></td><td>&rarr;</td><td class='example2'><p>You are a <ins>pleasant</ins> child.</p></td></tr>
+<tr><td><pre>a ^2^ + b ^2^ = c ^2^</pre></td><td>&rarr;</td><td class='example2'><p>a <sup>2</sup> + b <sup>2</sup> = c <sup>2</sup></p></td></tr>
+<tr><td><pre>log ~2~ x</pre></td><td>&rarr;</td><td class='example2'><p>log <sub>2</sub> x</p></td></tr>
+<tr><td colspan=5><h3 class="help_head">Lists</h3></td></tr>
+<tr><td><pre># A first item<br /># A second item<br /># A third</pre></td><td>&rarr;</td><td class='example2'><ol>
+	<li>A first item</li>
+		<li>A second item</li>
+		<li>A third</li>
+	</ol></td></tr>
+<tr><td><pre>* A first item<br />* A second item<br />* A third</pre></td><td>&rarr;</td><td class='example2'><ul>
+	<li>A first item</li>
+		<li>A second item</li>
+		<li>A third</li>
+	</ul></td></tr>
+<tr><td colspan=5><h3 class="help_head">Links</h3></td></tr>
+<tr><td><pre>I searched "Google":http://google.com.</pre></td><td>&rarr;</td><td class='example2'><p>I searched <a href="http://google.com">Google</a>.</p></td></tr>
+<tr><td><pre>We use CSS(Cascading Style Sheets).</pre></td><td>&rarr;</td><td class='example2'><p>We use <acronym title="Cascading Style Sheets">CSS</acronym>.</p></td></tr>
+            <tr><td colspan=5><h3 class="help_head">Footnotes</h3></td></tr>
+<tr><td><pre>This is covered elsewhere[1].</pre></td><td>&rarr;</td><td class='example2'><p>This is covered elsewhere<sup><a href="#fn1">1</a></sup>.</p></td></tr>
+<tr><td><pre>fn1. Down here, in fact.</pre></td><td>&rarr;</td><td class='example2'><p id="fn1"><sup>1</sup> Down here, in fact.</p></td></tr>
+</table>
+</div>
+	</div><!--END MAIN-WRAPPER-->
+</body>
+</html>

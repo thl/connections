@@ -1,0 +1,31 @@
+= NetBadge
+
+== Description of how it all works
+
+Apache is setup to intercept requests at /sessions/netbadge under HTTPS
+
+** So all requests to that url must be HTTPS if Apache is to kick in it's NetBadge magic.
+
+If Apache doesn't find a valid cookie, the request is redirected to the NetBadge auth. server.
+
+User performs login at NetBadge server
+
+With a successful login, the NetBadge auth. server redirects back to the original location: /sessions/netbadge
+
+But with a REMOTE_USER variable (among other things)
+
+...
+
+This time, the Rails app handles the request
+
+The :netbadge action attemps to find a User like: User.find_by_netbadgeid==REMOTE_USER
+
+If found, the current_user is set (user.id stored in session) and the user is redirected to the /me url == DONE
+
+If the User is not registered, they're forwarded to the signup page with their info pre-populated with netbadge data
+
+=======================
+
+NOTE: Passwords are not required for NetBadge users
+
+The only location that needs to be under SSL is /sessions/netbadge; Apache requires this

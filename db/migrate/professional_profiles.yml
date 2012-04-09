@@ -1,0 +1,17 @@
+faculty:
+  name: Faculty
+
+undergraduate:
+  name: Undergraduate
+
+graduate:
+  name: Graduate Student
+
+technologist:
+  name: Technologist
+
+admin:
+  name: Administrator
+
+independent:
+  name: Independent Scholar

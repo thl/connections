@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+Bob:
+    id: 1
+    person_id: 1
+    
+Aaron:
+    id: 2
+    person_id: 3
+        
+Nick:
+    id: 3
+    person_id: 6

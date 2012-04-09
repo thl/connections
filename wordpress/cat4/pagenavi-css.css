@@ -1,0 +1,28 @@
+.wp-pagenavi {
+	overflow: hidden;
+	padding: 5px 0;
+}
+
+.wp-pagenavi a:link, .wp-pagenavi a:visited,
+.wp-pagenavi span.current {
+	line-height:2em;
+	text-decoration:none;
+	font-size:.95em;
+	font-weight:bold;
+	color:#c0e6f8;
+	padding:5px 7px;
+	margin-left:6px;
+	border:1px solid #6d93a0;
+	background:#6d93a0;	
+}
+
+.wp-pagenavi a:hover,
+.wp-pagenavi a:active,
+.wp-pagenavi span.current {
+	color:#2b2a28;
+	background:none;	
+}
+.wp-pagenavi span.pages,
+.wp-pagenavi span.extend {
+	display: none;
+}

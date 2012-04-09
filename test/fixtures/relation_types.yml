@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+team_member:
+  name: team member of
+  created_by: 1
+
+director:
+  name: director of
+  created_by: 1

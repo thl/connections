@@ -1,0 +1,48 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	//global vars
+	var searchBoxes = $(".text");
+	var searchBox = $("#fathom-side-search input[type=text]")
+	var searchBoxDefault = "Search Connections";
+	
+	searchBoxes.focus(function(e){
+		$(this).addClass("active");
+	});
+	searchBoxes.blur(function(e){
+		$(this).removeClass("active");
+	});
+	
+	searchBox.focus(function(){
+		if($(this).attr("value") == searchBoxDefault) $(this).attr("value", "");
+	});
+	searchBox.blur(function(){
+		if($(this).attr("value") == "") $(this).attr("value", searchBoxDefault);
+	});
+});
+</script>
+<!--INTRO-->
+<div id="intro" class="module">
+  <p>Connections (Tendrel in Tibetan) is a social directory for individuals, projects, and organizations in the Tibetan plateau and the Greater Himalayan region to describe their background, interests, work, and interconnections. The site serves those involved in education, non-profit activity, cultural work, social business, and other socially progressive and beneficial activities in and/or relating to the region.</p>
+
+  <div class="wp-btn clearfloat">
+  <% if !logged_in? -%>
+    <p><a href="/signup" title="account registration"><span>Register <em>Today!</em></span></a></p>
+  <% end %>
+  </div>
+  <p>Use the search box below to explore our community, or register to make your own entries.....</p>
+</div>
+<!--HOME SEARCH -->
+<div id="fathom-side-search" class="module">
+  
+	<% if defined?(SOLR_URL) %>
+	  <%=  render :partial => 'layouts/side_search' %>
+	<% end -%>
+</div>
+<!--HOME SEARCH -->
+<div id="tags" class="module">
+  <h2>Tags</h2>
+</div>	
+
+<div class="wp-btn clearfloat">
+	  <p><%= link_to content_tag( :span,'Subscribe to THL Mailing List'), 'http://thlib.org/community/newsupdates-thl.php',  { :title => "Subscribe to THL Mailing List" } %></p>
+</div>

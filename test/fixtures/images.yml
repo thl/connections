@@ -1,0 +1,37 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+person_placeholder:
+    id: 1
+    content_type: image/jpeg
+    filename: person_placeholder.jpg
+    size: 7009
+    width: 150
+    height: 200
+
+person_placeholder_thumb:
+    id: 2
+    content_type: image/jpeg
+    filename: person_placeholder_thumb.jpg
+    thumbnail: thumb
+    parent_id: 1
+    size: 4432
+    width: 38
+    height: 50
+
+project_placeholder:
+    id: 3
+    content_type: image/jpeg
+    filename: project_placeholder.jpg
+    size: 12684
+    width: 189
+    height: 183
+
+project_placeholder_thumb:
+    id: 4
+    content_type: image/jpeg
+    filename: project_placeholder_thumb.jpg
+    thumbnail: thumb
+    parent_id: 3
+    size: 5479
+    width: 50
+    height: 48
