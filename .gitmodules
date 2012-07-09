@@ -13,27 +13,12 @@
 [submodule "vendor/plugins/active_resource_extensions"]
 	path = vendor/plugins/active_resource_extensions
 	url = git://github.com/thl/active_resource_extensions.git
-[submodule "vendor/plugins/acts-as-taggable-on"]
-	path = vendor/plugins/acts-as-taggable-on
-	url = git://github.com/mbleigh/acts-as-taggable-on.git
 [submodule "vendor/plugins/attachment_fu"]
 	path = vendor/plugins/attachment_fu
 	url = git://github.com/technoweenie/attachment_fu.git
-[submodule "vendor/plugins/exception_notification"]
-	path = vendor/plugins/exception_notification
-	url = git://github.com/rails/exception_notification.git
-[submodule "vendor/plugins/jrails"]
-	path = vendor/plugins/jrails
-	url = git://github.com/aaronchi/jrails.git
-[submodule "vendor/plugins/open_id_authentication"]
-	path = vendor/plugins/open_id_authentication
-	url = git://github.com/Velir/open_id_authentication.git
-[submodule "vendor/plugins/recaptcha"]
-	path = vendor/plugins/recaptcha
-	url = git://github.com/ambethia/recaptcha.git
 [submodule "vendor/plugins/restful-authentication"]
 	path = vendor/plugins/restful-authentication
-	url = git://github.com/technoweenie/restful-authentication.git
-[submodule "vendor/plugins/tiny_mce"]
-	path = vendor/plugins/tiny_mce
-	url = git://github.com/kete/tiny_mce.git
+	url = git://github.com/Satish/restful-authentication.git
+[submodule "vendor/plugins/rails_upgrade"]
+	path = vendor/plugins/rails_upgrade
+	url = git://github.com/amontano/rails_upgrade.git

@@ -1,0 +1,69 @@
+FathomConnection::Application.routes.draw do
+  resources :categories do
+  
+    member do
+  get :contract
+  get :expand
+  end
+      resources :children do
+    
+        member do
+    get :contract
+    get :expand
+    end
+    
+    end
+  end
+
+  match 'sessions/netbadge' => 'sessions#netbadge', :as => :netbadge_sessions, :protocol => 'http'
+  resources :users
+  resources :sessions
+  resources :relationships
+  match '/signup' => 'users#new', :as => :signup
+  match '/login' => 'sessions#new', :as => :login
+  match '/logout' => 'sessions#destroy', :as => :logout
+  match '/login_page' => 'sessions#login_page', :as => :login_page
+  match 'sessions' => 'sessions#create', :as => :open_id_complete, :constraints => { :method => :get }
+  match '/relate' => 'home#relate', :as => :relate
+  match '/link_netbadge' => 'users#link_netbadge', :as => :link_netbadge
+  match '/' => 'home#index', :as => :home_page
+  match '/search' => 'search#index', :as => :search
+  match '/regenerate_index' => 'search#regenerate_index', :as => :regenerate_index
+  resources :posts
+  resources :organizations do
+  
+  
+      resources :posts
+  end
+
+  resources :people do
+    collection do
+  get :profile_tags
+  end
+  
+      resources :links
+    resources :posts
+    resources :line_items
+  end
+
+  resources :tools do
+  
+  
+      resources :posts
+    resources :people
+  end
+
+  resources :projects do
+  
+  
+      resources :posts
+    resources :people
+  end
+
+  match '/me' => 'people#me', :as => :me, :constraints => { :method => :get }
+  match 'relationbrowser' => 'home#relationbrowser', :as => :relationbrowser
+  match '/admin' => 'users#index', :as => :admin
+  match '/admin/update_users' => 'users#update', :as => :admin_update_users
+  match '/' => 'home#index'
+  match '/:controller(/:action(/:id))'
+end

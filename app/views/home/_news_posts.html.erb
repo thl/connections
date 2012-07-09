@@ -1,6 +1,6 @@
 <div id="posts" class="module">
 	
-	<h3><%= link_to 'Latest Posts', posts_path,  { :title => "Read Posts" } %></h3>
+	<h3><%= link_to 'Latest Posts Connections', posts_path,  { :title => "Read Posts" } %></h3>
 	<div id="seeking" class="item">
 	  <% @posts = Post.find(:all, :limit => 5) %>
 	  <table class="home-posts-listing">

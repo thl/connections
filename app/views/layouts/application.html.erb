@@ -13,6 +13,9 @@
   <meta name="MSSmartTagsPreventParsing" content="TRUE">
   <%= javascripts %>
   <%= stylesheets %>
+  <%#= stylesheet_link_tag :all %>
+  <%#= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
 
 </head>
 <% if @current_style == :gallery -%>
@@ -93,7 +96,7 @@ $("#sideMenuLink").css("background-position", "0% 0%");});
 						-%>
 						<li class="<%= class_string %>">
 						  <%#= link_to nav_item[:text], nav_item[:link] %>
-						  <%= link_to("<span>#{nav_item[:text]}</span>" , nav_item[:link]) %>
+						  <%= link_to("<span>#{nav_item[:text]}</span>".html_safe , nav_item[:link]) %>
 						</li>
 					<% end -%>
 				</ul><!--END ul fathom-nav-wrapper -->

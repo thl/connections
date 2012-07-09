@@ -1,0 +1,46 @@
+[31m[1mNew file needed: config/application.rb[0m
+[37mYou need to add a config/application.rb.
+[1mMore information:[0m [36mhttp://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade
+
+[37mThe culprits: 
+[33m	- config/application.rb
+[0m
+[31m[1mSoon-to-be-deprecated ActiveRecord calls[0m
+[37mMethods such as find(:all), find(:first), finds with conditions, and the :joins option will soon be deprecated.
+[1mMore information:[0m [36mhttp://m.onkey.org/2010/1/22/active-record-query-interface
+
+[37mThe culprits: 
+[33m	- app/views/home/_news_posts.html.erb
+[0m
+[31m[1mOld gem bundling (config.gems)[0m
+[37mThe old way of bundling is gone now.  You need a Gemfile for bundler.
+[1mMore information:[0m [36mhttp://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade
+
+[37mThe culprits: 
+[33m	- config/environment.rb
+[0m
+[31m[1mOld Rails generator API[0m
+[37mA plugin in the app is using the old generator API (a new one may be available at http://github.com/trydionel/rails3-generators).
+[1mMore information:[0m [36mhttp://blog.plataformatec.com.br/2010/01/discovering-rails-3-generators/
+
+[37mThe culprits: 
+[33m	- vendor/plugins/acts-as-taggable-on/generators/
+[33m	- vendor/plugins/acts-as-taggable-on/generators/acts_as_taggable_on_migration/
+[33m	- vendor/plugins/restful-authentication/generators/
+[33m	- vendor/plugins/restful-authentication/generators/authenticated/
+[0m
+[31m[1mOld router API[0m
+[37mThe router API has totally changed.
+[1mMore information:[0m [36mhttp://yehudakatz.com/2009/12/26/the-rails-3-router-rack-it-up/
+
+[37mThe culprits: 
+[33m	- config/routes.rb
+[0m
+[31m[1mDeprecated test_help path[0m
+[37mYou now must require 'rails/test_help' not just 'test_help'.
+[1mMore information:[0m [36mhttp://weblog.rubyonrails.org/2009/9/1/gem-packaging-best-practices
+
+[37mThe culprits: 
+[33m	- test/test_helper.rb
+[33m	- test/test_helper.rb.rails2
+[0m
