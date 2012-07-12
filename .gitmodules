@@ -25,3 +25,6 @@
 [submodule "vendor/plugins/authenticated_system"]
 	path = vendor/plugins/authenticated_system
 	url = git://github.com/thl/authenticated_system.git
+[submodule "vendor/plugins/passiverecord"]
+	path = vendor/plugins/passiverecord
+	url = git://github.com/ambethia/passiverecord.git
