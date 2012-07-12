@@ -1,3 +1,4 @@
+FathomConnections::Application.configure do
 # Settings specified here will take precedence over those in config/environment.rb
 
 # The production environment is meant for finished, "live" apps.
@@ -32,3 +33,4 @@ SOLR_URL = 'http://127.0.0.1:8080/thlib-solr-multicore/thlib-connections-solr'  
 #SOLR_URL = 'http://127.0.0.1:8983/solr' # Search is disabled in production
 SSL_ENABLED=true
 FATHOM_AUTHENTICATION = true
+end
