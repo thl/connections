@@ -37,3 +37,12 @@ production:
     username: rubyuser
     password: rubydude 
     socket: /opt/local/var/run/mysql5/mysqld.sock
+
+quandu_production:
+    adapter: mysql
+    database: thdl_connections_development
+    username: rubyuser
+    password: rubydude
+    host: sds2.itc.virginia.edu
+    #socket: /var/run/mysqld/mysqld.sock
+    encoding: utf8
