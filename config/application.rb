@@ -19,7 +19,8 @@ module FathomConnections
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-    config.plugins = [:thl_integration, :active_resource_extensions, :tiny_mce, :exception_notification, :fathom_engine, :all ]
+    config.plugins = [:thl_integration, :active_resource_extensions,  :attachment_fu, :fathom_engine, :kmaps_integration, :passiverecord, :recaptcha ]
+    #config.plugins = [:fathom_engine, :thl_integration, :active_resource_extensions, :tiny_mce, :exception_notification, :authenticated_system,  :all ]
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
