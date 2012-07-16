@@ -1,5 +1,6 @@
 <% if !params[:inline] 
-	if @current_style == :gallery -%><%= header(:class => 'gallery community', :id => 'interior') %>
+	if @current_style == :gallery %>
+<%= 	header(:class => 'gallery community') %>
 <% elsif @current_style == :details -%><%= header(:class => 'details community', :id => 'interior') %>
 <% elsif @current_style == :showview -%><%= header(:class => 'details community', :id => 'interior') %>
 <% else -%><%= header(:id => 'home', :class => 'community') %>
