@@ -1,79 +1,133 @@
-var ModelSearcher = {
+function include(arr, obj) {
+    for(var i=0; i<arr.length; i++) if (arr[i] == obj) return true;
+    return false;
+}
 
+function ModelSearcher(){
 	// URL for JSON that lists categories in the form [{"name":"Agricultrure","id":4074},{"name":"Agriculture","id":2558}]
-	listService: "",
+	this.listService = "";
 	
 	// URL for JSON that lists categories in a hierachy (see ModelSearch.createTreeFromArray() for details)
-	treeService: "",
+	this.treeService = "";
 	
 	// A script on the same subdomain. When a URL is appended to this string, the resulting URL should return the original URL's content.
 	// The proxy can be bypassed by using service URLs that don't begin with "http" (and are thus on the subdomain and don't need a proxy)
-	proxy: "/kmaps_integration/utils/proxy/?proxy_url=",
+	this.proxy = "";
 	
 	// The id attribute of the div which contains all of DOM elements for this 
-	divId: "",
+	this.divId = "";
 	
 	// The jQuery-wrapped DOM element of the div which contains all of DOM elements for this
-	div: null,
+	this.div = null;
 	
 	// The name, label, and style attributes of the hidden field in which the selected ID(s) will be entered
-	fieldName: "searcher_id_input",
-	fieldLabel: "",
-	fieldStyle: "",
+	this.hiddenFieldName = "searcher_id_input";
+	this.fieldLabel = "";
+	this.fieldStyle = "padding:3px; width: 161px";
 	
 	// Another method of adding objects (instead of using services)
-	objectList: null,
+	this.objectList = null;
 	
 	// A JS array of the object(s) which should be selected in the form [{id: '2594', name: 'animals'}]
-	selectedObjects: null,
+	this.selectedObjects = [];
 	
 	// The jQuery-wrapped DOM element of the hidden input which stores the selected ID(s)
-	hiddenIdInput: null,
+	this.hiddenIdInput = null;
 	
 	// The jQuery-wrapped DOM element of the autocomplete text field input
-	autocompleteInput: null,
+	this.autocompleteInput = null;
 	
 	// Whether or not a tree (and the accompanying tree link) should be used 
-	hasTree: false,
+	this.hasTree = true;
+	
+	// Whether we are building this interface for category selection (editing interface) or searching (public interface)
+	this.searcher = false;
+	
+	// ID of category to use as starting point for topic filter and/or auto-complete
+	this.selectedRoot = null;
+	this.selectedRootOriginal = null;
 	
 	// Whether the user can select only one category from the tree (if present) or select multiple categories
-	singleSelectionTree: false,
+	this.singleSelection = false;
 	
 	// The id attribute of the div which contains the tree popup
-	treePopupId: "model_searcher_tree_popup",
+	this.treePopupId = null;
 	
 	// The jQuery-wrapped DOM element of the div which contains the tree popup
-	treePopup: null,
+	this.treePopup = null;
 	
 	// The jQuery-wrapped DOM element that lists the names selected from the tree
-	treeNames: null,
+	this.treeNames = null;
 	
 	// The jQuery-wrapped DOM element that removes the names selected from the tree
-	treeRemove: null,
+	this.treeRemove = null;
 	
-	treeHtml: null,
-	treeLoaded: false,
+	this.treeHtml = null;
 	
 	// See the attribute documentation above for explanations of these arguments
-	init: function(divId, listService, treeService, options){
+	this.reinit = function(divId, options) {
+		var el = document.getElementById('root_topics'),
+			selectedRoot = options['selectedRoot'],
+			varname = options['varname'],
+			listService, treeService;
+			
+		if ( !this.selectedRootOriginal ) this.selectedRootOriginal = selectedRoot;
+
+		if (!selectedRoot) {
+			var	id = el.value,
+				label = el.options[el.selectedIndex].text;
+		} else if (selectedRoot && selectedRoot != 'All') {
+			var id = selectedRoot;
+		} else {
+			var id = label = '';
+		}
+
+		if ( id != 'All' && id.length > 0) {
+			options['hasTree'] = true;
+			options['fieldLabel'] = label;
+			listService = options['list_url_topic'].replace('{id}', id);
+			treeService = options['all_url_topic'].replace('{id}', id);
+	    } else {
+	       	listService = options['list_url_root'];
+			treeService = options['all_url_root'];
+		}
+
+		window[varname].init(divId, listService, treeService, options);
+	};
+	
+	this.init = function(divId, listService, treeService, options) {
+		var that = this,
+			root_topics = document.getElementById('root_topics'),
+			div = jQuery('#'+divId);
+
+		this.varname = options['varname'];
+		this.cRowSelector = '#' + this.varname + '_characteristic-row';
+		this.bRowID = this.varname + '_bin';
+		this.binItemTemplate = '<span id="' + this.varname + '_bin_item_{id}" class="tree-names" style="line-height:19px;white-space:nowrap;padding:2px 3px 2px 2px; color:#404040; background-color:#f1f1f1; border:1pt #ccc solid;margin-right:3px;font-size:7pt"><a href="#" class="tree-remove"><img src="/images/delete.png" height=16 width=16 border=0 alt="x" style="display:inline;position:relative;top:4px;left:-2px"/></a>{content}</span> ';
 		this.listService = listService;
 		this.treeService = treeService;
-		if(options.fieldName)			{ this.fieldName = options.fieldName; }
-		if(options.fieldLabel)			{ this.fieldLabel = options.fieldLabel; }
-		if(options.selectedObjects)		{ this.selectedObjects = options.selectedObjects; }
-		if(options.hasTree)				{ this.hasTree = options.hasTree; }
-		if(options.singleSelectionTree)	{ this.singleSelectionTree = options.singleSelectionTree; }
-		if(options.proxy)				{ this.proxy = options.proxy; }
+		if(typeof(options.searcher) != "undefined")				{ this.searcher = options.searcher; }		
+		if(typeof(options.fieldName) != "undefined")			{ this.fieldName = options.fieldName; }
+		if(typeof(options.fieldLabel) != "undefined")			{ this.fieldLabel = options.fieldLabel; }
+		if(typeof(options.selectedObjects) != "undefined")		{ this.selectedObjects = options.selectedObjects; }
+		if(typeof(options.hasTree) != "undefined")				{ this.hasTree = options.hasTree; }
+		if(typeof(options.singleSelection) != "undefined")		{ this.singleSelection = options.singleSelection; }
+		if(typeof(options.proxy) != "undefined")				{ this.proxy = options.proxy; }
+		this.binHiddenFieldTemplate = '<input type="hidden" name="'+this.fieldName+'" id="' + this.hiddenFieldName + '_' + this.varname + '" value="{value}" />'
 		this.divId = divId;
-		this.div = jQuery('#'+divId);
-		this.div.html(
-			(this.fieldLabel ? '<label for="'+this.fieldName+'">'+this.fieldLabel+'</label>' : '')+
-			'<input type="text" name="searcher_autocomplete" id="searcher_autocomplete" style="'+this.fieldStyle+'" />'+
-			'<input type="hidden" name="'+this.fieldName+'" id="searcher_id_input" />'
-		);
-		this.autocompleteInput = this.div.find('#searcher_autocomplete');
-		this.hiddenIdInput = this.div.find('#searcher_id_input');
-		
+		this.table = jQuery('tr[id^=' + this.varname + ']').first().closest('.mobj');
+		this.div = div.length ? div : this.table.wrap('<div />').parent().attr('id',this.divId);
+
+		if (this.searcher) { //( this.fieldLabel.indexOf('Feature Type') > -1 ) {
+			this.div.html(
+						(this.fieldLabel ? '<label for="'+this.fieldName +'_' + this.varname + '">'+this.fieldLabel+'</label>' : '') +
+						'<input type="text" name="searcher_autocomplete" id="searcher_autocomplete_' + this.varname + '" style="'+this.fieldStyle+'" />'+
+						this.binHiddenFieldTemplate.replace('{value}', '')
+						);
+		}
+		this.autocompleteInput = jQuery('#searcher_autocomplete_' + this.varname);
+		this.hiddenIdInput = jQuery('#' + this.hiddenFieldName + '_' + this.varname);
+
 		// Request the service through a proxy if it's not local
 		if(this.listService.substr(0,4) == 'http'){
 			this.listService = this.proxy+this.listService;
@@ -81,62 +135,119 @@ var ModelSearcher = {
 		if(this.treeService.substr(0,4) == 'http'){
 			this.treeService = this.proxy+this.treeService;
 		}
-		
+
 		jQuery.getJSON(this.listService, function(data){
-			ModelSearcher.autocompleteInput.autocomplete(data, {
+			that.autocompleteInput.unautocomplete().autocomplete(data, {
 				matchContains: true,
 				mustMatch: true,
 				max: 20,
-				formatItem: ModelSearcher.autocompleteFormatItem,
-				formatMatch: ModelSearcher.autocompleteFormatMatch,
-				formatResult: ModelSearcher.autocompleteFormatItem
+				formatItem: that.autocompleteFormatItem,
+				formatMatch: that.autocompleteFormatMatch,
+				formatResult: that.autocompleteFormatItem,
+				multiple: !this.searcher
 			});
-			ModelSearcher.autocompleteInput.result(ModelSearcher.autocompleteCallback);
-			ModelSearcher.objectList = [];
+			that.autocompleteInput.result(that.autocompleteCallback);
+			that.objectList = {};
 			for(var i in data){
-				ModelSearcher.objectList[data[i].id] = data[i];
+				that.objectList[data[i].id] = data[i];
 			}
 		});
 		if(this.selectedObjects && this.selectedObjects.length == 1){
 			this.autocompleteInput.val(this.selectedObjects[0].name);
 			this.hiddenIdInput.val(this.selectedObjects[0].id);
 		}
+
 		if(this.hasTree){
-			this.div.append('<br />Input type above or <a href="#" class="tree-link">select from tree</a>'+
-				'<span class="tree-names"></span> <a href="#" class="tree-remove">(remove)</a><span class="tree-loading" style="float:right;"></span>');
-			this.treeLink = this.div.find('.tree-link');
-			this.treeRemove = this.div.find('.tree-remove');
-			this.treeNames = this.div.find('.tree-names');
+			this.treePopupId = this.varname + "_model_searcher_tree_popup";
 			this.treeLoading = this.div.find('.tree-loading');
-			this.treeRemove.hide();
-			this.treeRemove.click(function(){
-				ModelSearcher.treeNames.html('');
-				ModelSearcher.treeRemove.hide();
-				ModelSearcher.hiddenIdInput.val('');
-				return false;
-			});
-			this.treeLink.click(function(){
-				if(ModelSearcher.treeLoaded){
-					jQuery('#'+ModelSearcher.treePopupId).show();
-				}else{
-					ModelSearcher.treeLoading.html(' <img src="/images/ajax-loader.gif" />');
-					jQuery.getJSON(ModelSearcher.treeService, function(data){
-						ModelSearcher.treeHtml = ModelSearcher.createTreeFromArray(data.category);
-						ModelSearcher.loadPopup();
-						ModelSearcher.treeHtml = null;
-						data = null;
-						ModelSearcher.treeLoading.html('');
-						ModelSearcher.treeLoaded = true;
-					});
+			if ( this.searcher ) {
+				this.div.append('<br />Input type above or <a href="#" class="tree-link">select from tree</a>'+
+								'<span class="tree-names"></span> <a href="#" class="tree-remove">(remove)</a><span class="tree-loading" style="float:right;"></span>');
+				this.treeLink = this.div.find('.tree-link');
+				this.treeRemove = this.div.find('.tree-remove');
+				this.treeNames = this.div.find('.tree-names');
+				this.treeRemove.hide();
+				this.treeRemove.click(function(){
+					thisModelSearcher.treeNames.html('');
+					thisModelSearcher.treeRemove.hide();
+					thisModelSearcher.hiddenIdInput.val('');
+					thisModelSearcher.selectedObjects = []
+					return false;
+				});
+				this.treeLink.click(function(){
+					jQuery('.draggable-popup').hide();
+					if(thisModelSearcher.treeLoaded){
+	 					jQuery('#'+thisModelSearcher.treePopupId).show();
+	 				}else{
+						thisModelSearcher.treeLoading.html(' <img src="../images/ajax-loader.gif" />');
+						jQuery.getJSON(thisModelSearcher.treeService, function(data){
+							thisModelSearcher.treeHtml = thisModelSearcher.createTreeFromArray(data.category ? data.category.categories : data.categories);
+							thisModelSearcher.loadPopup();
+							thisModelSearcher.treeHtml = null;
+							data = null;
+							thisModelSearcher.treeLoading.html('');
+							thisModelSearcher.treeLoaded = true;
+						});
+					}
+					return false;
+				});
+			}
+		}
+		bRow = jQuery('td#' + this.bRowID);
+		jQuery('.tree-remove', bRow).unbind('click'); // this and below have to be separate because live can't be chained
+		bRow.delegate('.tree-remove', 'click', function(){
+			var $selection = jQuery(this).closest('.tree-names'),
+				$row = $selection.closest('td'),
+				$target = $selection.siblings().length ? $selection : $selection.closest('tr');
+			
+			$selection.fadeOut( function(){
+				var id = this.id.replace(that.varname + '_bin_item_',''); /*,
+					regex = new RegExp('(^|,)' + id + '(,|$)'),
+					val = that.hiddenIdInput[0].value; */
+				$target.remove();
+				if (that.singleSelection) {
+					that.hiddenIdInput[0].value = '';
+				} else
+				{	/* This doesn't work in safari in unpredictable cases!!!
+				    jQuery('input#' + that.hiddenFieldName + '_' + that.varname + '[value=' + id + ']').remove(); */
+					$row.find('input#[value=' + id + ']').remove();
 				}
-				return false;
+				that.checkAnnotationState();
+			});
+			return false;
+		});
+		
+		/* if ( root_topics && root_topics.value != 'All' ) {
+			jQuery('#browse_link_' + that.varname).unbind('click').show().click(function() { that.activatePopup() });
+		}*/
+		jQuery('#browse_link_' + that.varname).unbind('click').click(function(e) { that.activatePopup(); e.preventDefault(); });
+	};
+	
+	this.activatePopup = function() {
+		var that = this;
+		if(window['activeTree'] == this.treeService ){
+			jQuery('#'+this.treePopupId).show();
+		}else{
+			var $test = jQuery('#tree-loader-img'),
+				$img = $test.length ?
+								$test.show() :
+								jQuery("<img id='tree-loader-img' src='/images/loading.gif' align='right' />").insertAfter('#browse_link_' + that.varname);
+			jQuery.getJSON(this.treeService, function(data){
+				that.treeHtml = that.createTreeFromArray(data.category ? data.category.categories : data.categories);
+				that.loadPopup();
+				that.treeHtml = null;
+				data = null;
+				window['activeTree'] = that.treeService;
+				$img.hide();
 			});
 		}
-	},
+		return false;
+	}
 	
-	loadPopup: function(){
-		ModelSearcher.treePopup = jQuery().draggablePopup({
-			id: ModelSearcher.treePopupId,
+	this.loadPopup = function(){
+		var that = this;
+		this.treePopup = jQuery().draggablePopup({
+			id: that.treePopupId,
 			header: '',
 			content: '',
 			footer: '',
@@ -148,47 +259,135 @@ var ModelSearcher = {
 			'For each type, click on the left box to select the type and its subcategories; '+
 			'click on the right box to select only the type without its subcategories.</div><br />'+
 			'<form method="get" action="">'+
-			'<div'+(ModelSearcher.singleSelectionTree ? ' class="single_selection_tree"' : '' )+
+			'<div'+(that.singleSelection ? ' class="single_selection_tree"' : '' )+
 			' style="max-height: 400px; height:auto !important; height: 400px; overflow: auto;">'+
-			ModelSearcher.treeHtml+
+			that.treeHtml+
 			'</div>'+
 			'<br /><input type="submit" value="Select" /> <input type="button" value="Cancel" onclick="jQuery(this).parents(\'.draggable-popup:first\').hide(); return false;" />'+
 			'</form>'+
 			'</div>'
 			;
-		ModelSearcher.treePopup.setContent(content);
-		ModelSearcher.treePopup.div.checkTree({});
-		ModelSearcher.treePopup.div.find('form:first').submit(function(){
+		that.treePopup.setContent(content);
+		that.treePopup.div.checkTree({ onExpand: function( $parent ) {$parent.siblings().find('.expanded').click()}});
+		that.treePopup.div.find('form:first').submit(function(){
 			var ids = [];
+			var names = [];
+
 			jQuery(this).find(':checkbox:checked').each(function(){
-				var label_name = jQuery(this).siblings('label').attr('name');
+				var $label = jQuery(this).siblings('label');
+				var label_name = $label.attr('name');
 				if(label_name.indexOf('record_') == 0){
 					ids.push(label_name.substring(7));
+					names.push($label.html());
 				}
 			});
-			if(ids.length == 0){
-			}else{
-				ModelSearcher.selectedObjects = [];
-				var names = [];
-				for(var i in ids){
-					ModelSearcher.selectedObjects.push(ModelSearcher.objectList[ids[i]]);
-					names.push(ModelSearcher.objectList[ids[i]].name);
+			if (ids.length) {
+				if (that.searcher) { //( that.fieldLabel.indexOf('Feature Type') == -1 ) {
+					for(i in ids) {
+						id = ids[i]
+						id_int = parseInt(id)
+						if (!include(that.selectedObjects, id_int))
+						{
+							that.selectedObjects.push(id_int)
+							if (that.hiddenIdInput[0].value.length==0) {
+								that.hiddenIdInput.val(id);
+								that.treeNames.html(':<br />'+names[i]);
+							}
+							else {
+								that.hiddenIdInput.val(that.hiddenIdInput[0].value+','+id);
+								that.treeNames.html(that.treeNames[0].innerHTML + ', ' + names[i]);
+							}
+						}
+					}
+					that.autocompleteInput.val('');
+					that.treeRemove.show();
+				} else {
+					that.addValue( ids );
 				}
-				ModelSearcher.hiddenIdInput.val(ids.join(','));
-				ModelSearcher.autocompleteInput.val('');
-				ModelSearcher.treeNames.html(':<br />'+names.join(', '));
-				ModelSearcher.treeRemove.show();
 			}
-			//ModelSearcher.treePopup.close();
-			jQuery('#'+ModelSearcher.treePopupId).hide();
+			jQuery('#'+that.treePopupId).hide();
 			return false;
 		});
+
 		// For large trees, keeping this in memory can cause performance issues, so we'll set it to null
-		// and use ModelSearcher.treePopupId when we need it.
-		ModelSearcher.treePopup = null;
-	},
+		// and use thisModelSearcher.treePopupId when we need it.
+		that.treePopup = null;
+	};
 	
-	resetFields: function(){
+	this.addValue = function( ids ) {
+		var that = this,
+			i,
+			ids = ids || [];
+			$bRow = jQuery('td#' + that.bRowID);
+		if (that.searcher) {
+			for(i in ids) {
+				id = ids[i]
+				object = that.objectList[id];
+				if (!include(that.selectedObjects, id))
+				{
+					that.selectedObjects.push(id)
+					if (that.hiddenIdInput[0].value.length==0) {
+						that.hiddenIdInput.val(id);
+						that.treeNames.html(':<br />'+object.name);
+					}
+					else {
+						that.hiddenIdInput.val(that.hiddenIdInput[0].value+','+id);
+						that.treeNames.html(that.treeNames[0].innerHTML + ', ' + object.name);
+					}
+				}
+			}
+			that.treeRemove.show();
+		} else {
+			if ($bRow.length==0) $bRow = jQuery("<tr><td></td><td colspan='2' style='padding-top:1px; padding-bottom:4px' id='" + that.bRowID + "'></td></tr>").insertAfter(jQuery(that.cRowSelector)).find('td#' + that.bRowID);
+			if (that.singleSelection)
+			{
+				id = ids[0];
+				object = that.objectList[id];
+				that.selectedObjects.push(object);
+				that.hiddenIdInput[0].value = id;
+				spans = jQuery('span.tree-names', $bRow);
+				if (spans.length==0) {
+					$bRow.append(that.binItemTemplate.replace('{content}', object.name).replace('{id}', id));
+				}
+				else {
+					if (spans.length>1) spans.slice(1).remove();
+					spans.replaceWith(that.binItemTemplate.replace('{content}', object.name).replace('{id}', id));
+				}
+			}
+			else
+			{
+				for(i in ids){
+					id = ids[i]
+					if ( jQuery('#'+that.varname+'_bin_item_'+id, $bRow).length==0 ) {
+						that.selectedObjects.push(that.objectList[id]);
+						$bRow.append(that.binItemTemplate.replace('{content}', that.objectList[id].name).replace('{id}', id));
+					}
+					if ( jQuery('input#[value=' + id + ']', $bRow).length==0 ) {
+						$bRow.append(that.binHiddenFieldTemplate.replace('{value}', id));
+					}
+				}
+			}
+			this.checkAnnotationState();
+		}
+		that.autocompleteInput.val('');
+	}
+	
+	this.checkAnnotationState = function() {
+		bRow = jQuery('td#' + this.bRowID);
+		if ( jQuery('.tree-names', bRow).length > 1 ) {
+			annotations = bRow.parent().nextAll().filter('.annotation');
+			jQuery('input', annotations).attr('disabled', 'disabled');
+			annotations.fadeOut();
+			// jQuery('.annotation', bRow).find('input').closest('tr').fadeOut();
+		} else {
+			annotations = bRow.parent().nextAll().filter('.annotation');
+			jQuery('input', annotations).removeAttr('disabled');
+			annotations.fadeIn();
+			// jQuery('.annotation', bRow).fadeIn().find('input').removeAttr('disabled');
+		}
+	}
+	
+	this.resetFields = function(){
 		this.autocompleteInput.val('');
 		this.hiddenIdInput.val('');
 		if(this.hasTree){
@@ -196,49 +395,49 @@ var ModelSearcher = {
 			this.treeRemove.hide();
 			jQuery('#'+this.treePopupId).hide();
 		}
-	},
+	};
 	
-	autocompleteFormatItem: function(item, i, max){
+	this.autocompleteFormatItem = function(item, i, max){
 		return jQuery.trim(item.name);
-	},
+	};
 	
-	autocompleteFormatMatch: function(item, i, max){
+	this.autocompleteFormatMatch = function(item, i, max){
 		return jQuery.trim(item.name);
-	},
+	};
 	
-	autocompleteFormatResult: function(item, i, max){
+	this.autocompleteFormatResult = function(item, i, max){
 		return item.id;
-	},
-	
-	autocompleteCallback: function(event, data, formatted) {
+	};
+	var thisModelSearcher = this;
+	this.autocompleteCallback = function(event, data, formatted) {
 		if(data){
-			ModelSearcher.hiddenIdInput.val(data.id);
+			thisModelSearcher.addValue([data.id])
 		}else{
-			ModelSearcher.hiddenIdInput.val('');
+			thisModelSearcher.hiddenIdInput.val('');
 		}
-		ModelSearcher.treeNames.html('');
-		ModelSearcher.treeRemove.hide();
+		/* thisModelSearcher.treeNames.html('');
+		thisModelSearcher.treeRemove.hide(); */
 		return false;
-	},
+	};
 	
-	createTreeFromArray: function(arr){
+	this.createTreeFromArray = function(arr){
 		var html = '';
-		if(arr.categories && arr.categories.category){
+		if(arr && arr.category){
 			html += '<ul class="tree">';
-			if(arr.categories.category && arr.categories.category[0]){
-				for(var i in arr.categories.category) {
+			if(arr.category && arr.category[0]){
+				for(var i in arr.category) {
 					html += '<li>';
-					html += '<input type="checkbox" class="toggle"><label name="record_'+arr.categories.category[i].id+'">'+arr.categories.category[i].title+'</label>';
-					if(arr.categories.category[i].categories){
-						html += this.createTreeFromArray(arr.categories.category[i]);
+					html += '<input type="checkbox" class="toggle"><label name="record_'+arr.category[i].id+'">'+arr.category[i].title+'</label>';
+					if(arr.category[i].categories){
+						html += this.createTreeFromArray(arr.category[i].categories);
 					}
 					html += '</li>';
 				}
-			}else if(arr.categories.category){
+			}else if(arr.category){
 				html += '<li>';
-				html += '<input type="checkbox" class="toggle"><label name="record_'+arr.categories.category.id+'">'+arr.categories.category.title+'</label>';
-				if(arr.categories.category.categories){
-					html += this.createTreeFromArray(arr.categories.category);
+				html += '<input type="checkbox" class="toggle"><label name="record_'+arr.category.id+'">'+arr.category.title+'</label>';
+				if(arr.category.categories){
+					html += this.createTreeFromArray(arr.category.categories);
 				}
 				html += '</li>';
 			}
@@ -248,4 +447,3 @@ var ModelSearcher = {
 	}
 
 };
-
