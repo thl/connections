@@ -15,8 +15,8 @@ config.action_mailer.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
   :domain               => 'inmotionconsulting.net',
-  :user_name            => 'hmazariegos@inmotionconsulting.net',
-  :password             => 'hamf8054',
+  :user_name            => 'thl@inmotionconsulting.net',
+  :password             => 'dev1connections',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
   
