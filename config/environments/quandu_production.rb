@@ -10,15 +10,25 @@ config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 #config.action_view.cache_template_loading            = true
 
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :domain               => 'inmotionconsulting.net',
-  :user_name            => 'thl@inmotionconsulting.net',
-  :password             => 'dev1connections',
-  :authentication       => 'plain',
-  :enable_starttls_auto => true  }
+#config.action_mailer.delivery_method = :smtp
+#config.action_mailer.smtp_settings = {
+#  :address              => "smtp.gmail.com",
+#  :port                 => 587,
+#  :domain               => 'inmotionconsulting.net',
+#  :user_name            => 'thl@inmotionconsulting.net',
+#  :password             => 'dev1connections',
+#  :authentication       => 'plain',
+#  :enable_starttls_auto => true  }
+  
+config.action_mailer.delivery_method = :sendmail
+# Defaults to:
+# config.action_mailer.sendmail_settings = {
+#   :location => '/usr/sbin/sendmail',
+#   :arguments => '-i -t'
+# }
+config.action_mailer.perform_deliveries = true
+config.action_mailer.raise_delivery_errors = true
+
   
 # See everything in the log (default is :info)
 # config.log_level = :debug
