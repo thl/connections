@@ -1,15 +1,16 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090708172100) do
+ActiveRecord::Schema.define(:version => 20100214201124) do
 
   create_table "authors_reviews", :id => false, :force => true do |t|
     t.integer "author_id", :null => false
@@ -17,6 +18,31 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
   end
 
   add_index "authors_reviews", ["author_id", "review_id"], :name => "index_authors_reviews_on_author_id_and_review_id", :unique => true
+
+  create_table "authors_translated_sources", :id => false, :force => true do |t|
+    t.integer "author_id",            :null => false
+    t.integer "translated_source_id", :null => false
+  end
+
+  add_index "authors_translated_sources", ["author_id", "translated_source_id"], :name => "authors_translated_sources_index", :unique => true
+
+  create_table "authors_usage_scenarios", :id => false, :force => true do |t|
+    t.integer "author_id",         :null => false
+    t.integer "usage_scenario_id", :null => false
+  end
+
+  add_index "authors_usage_scenarios", ["author_id", "usage_scenario_id"], :name => "index_authors_usage_scenarios_on_author_id_and_usage_scenario_id", :unique => true
+
+  create_table "blacklists", :force => true do |t|
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "middle_initial"
+    t.string   "last_name"
+    t.integer  "attempts"
+    t.date     "last_attempt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "disciplines", :force => true do |t|
     t.string   "name"
@@ -59,6 +85,14 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.datetime "updated_at"
   end
 
+  create_table "languages", :force => true do |t|
+    t.string   "title",      :limit => 100, :null => false
+    t.string   "code",       :limit => 3,   :null => false
+    t.string   "locale",     :limit => 6,   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "line_items", :force => true do |t|
     t.string   "text"
     t.string   "category"
@@ -93,6 +127,26 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.string "setting"
     t.binary "value"
   end
+
+  create_table "people", :force => true do |t|
+    t.string "fullname", :null => false
+  end
+
+  add_index "people", ["fullname"], :name => "index_people_on_fullname", :unique => true
+
+  create_table "permissions", :force => true do |t|
+    t.string "title",       :limit => 60, :null => false
+    t.text   "description"
+  end
+
+  add_index "permissions", ["title"], :name => "index_permissions_on_title", :unique => true
+
+  create_table "permissions_roles", :id => false, :force => true do |t|
+    t.integer "permission_id", :null => false
+    t.integer "role_id",       :null => false
+  end
+
+  add_index "permissions_roles", ["permission_id", "role_id"], :name => "index_permissions_roles_on_permission_id_and_role_id", :unique => true
 
   create_table "person_profiles", :force => true do |t|
     t.string   "first_name"
@@ -192,7 +246,6 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.string   "state"
     t.string   "zipcode"
     t.text     "notes"
-    t.text     "synopsis"
     t.text     "interests"
   end
 
@@ -213,10 +266,10 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.integer  "user_id",              :limit => 8,   :default => 0,   :null => false
   end
 
-  add_index "pxaUroik_comments", ["comment_approved", "comment_date_gmt"], :name => "comment_approved_date_gmt"
-  add_index "pxaUroik_comments", ["comment_approved"], :name => "comment_approved"
-  add_index "pxaUroik_comments", ["comment_date_gmt"], :name => "comment_date_gmt"
-  add_index "pxaUroik_comments", ["comment_post_ID"], :name => "comment_post_ID"
+  add_index "pxauroik_comments", ["comment_approved", "comment_date_gmt"], :name => "comment_approved_date_gmt"
+  add_index "pxauroik_comments", ["comment_approved"], :name => "comment_approved"
+  add_index "pxauroik_comments", ["comment_date_gmt"], :name => "comment_date_gmt"
+  add_index "pxauroik_comments", ["comment_post_ID"], :name => "comment_post_ID"
 
   create_table "pxaUroik_links", :primary_key => "link_id", :force => true do |t|
     t.string   "link_url",                             :default => "",  :null => false
@@ -234,8 +287,8 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.string   "link_rss",                             :default => "",  :null => false
   end
 
-  add_index "pxaUroik_links", ["link_category"], :name => "link_category"
-  add_index "pxaUroik_links", ["link_visible"], :name => "link_visible"
+  add_index "pxauroik_links", ["link_category"], :name => "link_category"
+  add_index "pxauroik_links", ["link_visible"], :name => "link_visible"
 
   create_table "pxaUroik_options", :id => false, :force => true do |t|
     t.integer "option_id",    :limit => 8,                             :null => false
@@ -245,7 +298,7 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.string  "autoload",     :limit => 20,         :default => "yes", :null => false
   end
 
-  add_index "pxaUroik_options", ["option_name"], :name => "option_name"
+  add_index "pxauroik_options", ["option_name"], :name => "option_name"
 
   create_table "pxaUroik_postmeta", :primary_key => "meta_id", :force => true do |t|
     t.integer "post_id",    :limit => 8,          :default => 0, :null => false
@@ -253,8 +306,8 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.text    "meta_value", :limit => 2147483647
   end
 
-  add_index "pxaUroik_postmeta", ["meta_key"], :name => "meta_key"
-  add_index "pxaUroik_postmeta", ["post_id"], :name => "post_id"
+  add_index "pxauroik_postmeta", ["meta_key"], :name => "meta_key"
+  add_index "pxauroik_postmeta", ["post_id"], :name => "post_id"
 
   create_table "pxaUroik_posts", :primary_key => "ID", :force => true do |t|
     t.integer  "post_author",           :limit => 8,          :default => 0,         :null => false
@@ -282,9 +335,9 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.integer  "comment_count",         :limit => 8,          :default => 0,         :null => false
   end
 
-  add_index "pxaUroik_posts", ["post_name"], :name => "post_name"
-  add_index "pxaUroik_posts", ["post_parent"], :name => "post_parent"
-  add_index "pxaUroik_posts", ["post_type", "post_status", "post_date", "ID"], :name => "type_status_date"
+  add_index "pxauroik_posts", ["post_name"], :name => "post_name"
+  add_index "pxauroik_posts", ["post_parent"], :name => "post_parent"
+  add_index "pxauroik_posts", ["post_type", "post_status", "post_date", "ID"], :name => "type_status_date"
 
   create_table "pxaUroik_term_relationships", :id => false, :force => true do |t|
     t.integer "object_id",        :limit => 8, :default => 0, :null => false
@@ -292,7 +345,7 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.integer "term_order",                    :default => 0, :null => false
   end
 
-  add_index "pxaUroik_term_relationships", ["term_taxonomy_id"], :name => "term_taxonomy_id"
+  add_index "pxauroik_term_relationships", ["term_taxonomy_id"], :name => "term_taxonomy_id"
 
   create_table "pxaUroik_term_taxonomy", :primary_key => "term_taxonomy_id", :force => true do |t|
     t.integer "term_id",     :limit => 8,          :default => 0,  :null => false
@@ -302,7 +355,7 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.integer "count",       :limit => 8,          :default => 0,  :null => false
   end
 
-  add_index "pxaUroik_term_taxonomy", ["term_id", "taxonomy"], :name => "term_id_taxonomy", :unique => true
+  add_index "pxauroik_term_taxonomy", ["term_id", "taxonomy"], :name => "term_id_taxonomy", :unique => true
 
   create_table "pxaUroik_terms", :primary_key => "term_id", :force => true do |t|
     t.string  "name",       :limit => 200, :default => "", :null => false
@@ -310,8 +363,8 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.integer "term_group", :limit => 8,   :default => 0,  :null => false
   end
 
-  add_index "pxaUroik_terms", ["name"], :name => "name"
-  add_index "pxaUroik_terms", ["slug"], :name => "slug", :unique => true
+  add_index "pxauroik_terms", ["name"], :name => "name"
+  add_index "pxauroik_terms", ["slug"], :name => "slug", :unique => true
 
   create_table "pxaUroik_usermeta", :primary_key => "umeta_id", :force => true do |t|
     t.integer "user_id",    :limit => 8,          :default => 0, :null => false
@@ -319,8 +372,8 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.text    "meta_value", :limit => 2147483647
   end
 
-  add_index "pxaUroik_usermeta", ["meta_key"], :name => "meta_key"
-  add_index "pxaUroik_usermeta", ["user_id"], :name => "user_id"
+  add_index "pxauroik_usermeta", ["meta_key"], :name => "meta_key"
+  add_index "pxauroik_usermeta", ["user_id"], :name => "user_id"
 
   create_table "pxaUroik_users", :primary_key => "ID", :force => true do |t|
     t.string   "user_login",          :limit => 60,  :default => "", :null => false
@@ -334,8 +387,8 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.string   "display_name",        :limit => 250, :default => "", :null => false
   end
 
-  add_index "pxaUroik_users", ["user_login"], :name => "user_login_key"
-  add_index "pxaUroik_users", ["user_nicename"], :name => "user_nicename"
+  add_index "pxauroik_users", ["user_login"], :name => "user_login_key"
+  add_index "pxauroik_users", ["user_nicename"], :name => "user_nicename"
 
   create_table "relation_types", :force => true do |t|
     t.string   "name"
@@ -362,6 +415,27 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.boolean  "is_primary", :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string "title",       :limit => 20, :null => false
+    t.text   "description"
+  end
+
+  add_index "roles", ["title"], :name => "index_roles_on_title", :unique => true
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "role_id", :null => false
+    t.integer "user_id", :null => false
+  end
+
+  add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
+
+  create_table "scenario_types", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|
@@ -373,6 +447,21 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "sources", :force => true do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.integer  "mms_id"
+    t.integer  "volume_number"
+    t.integer  "start_page"
+    t.integer  "start_line"
+    t.integer  "end_page"
+    t.integer  "end_line"
+    t.text     "passage"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "subject_links", :force => true do |t|
     t.integer  "subject_id",       :null => false
@@ -412,9 +501,6 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.string   "home_page"
     t.string   "download_page"
     t.text     "features"
-    t.text     "teaching_scenarios"
-    t.text     "research_scenarios"
-    t.text     "engagement_scenarios"
     t.text     "version_history"
     t.text     "technical_details"
     t.text     "support"
@@ -428,6 +514,28 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tool_type_id"
+    t.text     "system_requirements"
+    t.text     "operating_system"
+    t.text     "platform"
+  end
+
+  create_table "translated_sources", :force => true do |t|
+    t.text     "title",       :null => false
+    t.integer  "language_id", :null => false
+    t.integer  "source_id",   :null => false
+    t.integer  "creator_id",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "usage_scenarios", :force => true do |t|
+    t.integer  "tool_id",                             :null => false
+    t.text     "content"
+    t.integer  "scenario_type_id",                    :null => false
+    t.boolean  "is_primary",       :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "users", :force => true do |t|
@@ -445,6 +553,10 @@ ActiveRecord::Schema.define(:version => 20090708172100) do
     t.boolean  "request_full"
     t.boolean  "banned"
     t.string   "netbadgeid"
+    t.text     "background"
+    t.string   "reset_code",                :limit => 40
+    t.datetime "reset_password_code_until"
+    t.boolean  "private_profile",                         :default => false
   end
 
 end
