@@ -31,8 +31,9 @@ FathomConnections::Application.configure do
 end
 
 # Location of Solr search service
-SOLR_URL = 'http://localhost:8983/solr'
 #SOLR_URL = 'http://localhost:8080/thlib-solr-fathom'
+#SOLR_URL = 'http://localhost:8983/solr'
+SOLR_URL = 'http://localhost:8080/thlib-solr-multicore/thlib-connections-solr/'
 
 #SOLR_URL = nil
 
