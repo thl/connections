@@ -2,7 +2,7 @@
 	
 	<h3><%= link_to 'Latest Posts Connections', posts_path,  { :title => "Read Posts" } %></h3>
 	<div id="seeking" class="item">
-	  <% @posts = Post.find(:all, :limit => 5) %>
+	  <% @posts = Post.limit(5).order('created_at DESC') %>
 	  <table class="home-posts-listing">
 		<tr>
 	        <th scope="col">Subject</th>
@@ -13,7 +13,8 @@
 	    </tr>
 	  <% if !@posts.empty? %>
 		  <%# Sort posts in reverse chronological order (newest first). %>
-	  <% for post in @posts.sort_by {|p| p.created_at}.reverse %>
+	  <%# for post in @posts.sort_by {|p| p.created_at}.reverse %>
+	  <% for post in @posts %>
 		  <tr>
             <td><%= link_to post.subject, post_path(post) %></td>
             <td><%= link_to entity_for_post(post).name, url_for(entity_for_post(post)) %></td>
