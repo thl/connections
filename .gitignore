@@ -6,3 +6,4 @@ public/javascripts/tiny_mce/
 .DS_Store
 *.tmproj
 config/environments/quandu_*.rb
+config/database.yml
