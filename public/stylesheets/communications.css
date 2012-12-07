@@ -41,7 +41,7 @@ ul#fathom-nav-wrapper li.page_item a:hover{font-size:1.19em; font-weight:normal;
 ul#fathom-nav-wrapper li.page_item a:active{ color:#404040;background-color:#dbdcca; }
 
 
-#fathom-masthead-utility{ float:right; position:relative; top:0px; right:5px; display:inline; width:285px; height:26px; } /* contains the search and login tabs */
+#fathom-masthead-utility{ float:right; position:relative; top:0px; right:5px; display:inline; width:325px; height:26px; } /* contains the search and login tabs */
 #fathom-masthead-utility p{ font-size:10px; margin:0; padding:0;} 
 #fathom-masthead-utility p a,
 #fathom-masthead-utility p a:visited{ float:right; border-bottom:none; margin-right:10px; padding:0px; font-weight:bold; }

@@ -72,7 +72,7 @@ $("#sideMenuLink").css("background-position", "0% 0%");});
 		 <div class="entry">
 		 </div>
 <% 		 if logged_in? -%>
-<%= 	   render :partial => '/common/login' %>
+<%#= 	   render :partial => '/common/login' %>
 <% 		 end -%>
   	   </div>
   	 </div>
@@ -114,6 +114,9 @@ $("#sideMenuLink").css("background-position", "0% 0%");});
 		<% end %>
 		<% if logged_in? -%> 
 			<!-- <a href="#logout" id="login-toggle3">Log Out</a> -->
+			<p><%= link_to 'Log Out', logout_path %></p>
+			<% if admin? -%><p><%= link_to 'Admin', admin_path %></p> <% end -%>
+			<% if admin? -%><p><%= link_to 'Black List', blacklists_path %></p>  <% end -%>
 		<% else -%>   
             <% if defined?(SSL_ENABLED) %>
 				<%#=   render :partial => 'layouts/ssl_login' %>
