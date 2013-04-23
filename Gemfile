@@ -22,6 +22,7 @@ group :development do
  gem 'mongrel'
 end
 
+gem 'pothoven-attachment_fu'
 gem 'acts-as-taggable-on', '~> 2.2.2'
 gem 'open_id_authentication'
 gem "recaptcha", :require => "recaptcha/rails"
