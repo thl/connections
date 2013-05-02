@@ -29,7 +29,7 @@ a {
 
 #container {
     width: 900px;
-    height: 600px;
+    height: 700px;
     margin:0 auto;
     position:relative;
 }
@@ -37,11 +37,20 @@ a {
 #left-container, 
 #right-container, 
 #center-container {
-    height:600px;
+    height:700px;
     position:absolute;
     top:0;
 }
 
+#left-container{
+    width:0px;
+    color:#686c70;
+    text-align: left;
+    overflow: auto;
+    background-color:#fff;
+    background-repeat:no-repeat;
+    border-bottom:1px solid #ddd;
+}
 #left-container, #right-container {
     width:150px;
     color:#686c70;
@@ -64,6 +73,7 @@ a {
     right:0;
     background-image:url('col1.png');
     background-position:center left;
+	background-color:#e4dcce;
     border-right:1px solid #ddd;
 }
 
@@ -72,9 +82,9 @@ a {
 }
 
 #center-container {
-    width:700px;
-    left:150px;
-    background-color:#1a1a1a;
+    width:850px;
+    left:0px;
+    background-color:#e4dcce;
     color:#ccc;
 }
 
@@ -93,14 +103,15 @@ a {
     top:10px;
     font-size:1.0em;
     font-weight:bold;
-    color:#23A4FF;
+	color:#e4dcce;
+    /*color:#23A4FF;*/
 }
 
 
 #infovis {
     position:relative;
-    width:600px;
-    height:600px;
+    width:700px;
+    height:700px;
     margin:auto;
     overflow:hidden;
 }
