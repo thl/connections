@@ -88,6 +88,15 @@ a {
     color:#ccc;
 }
 
+#inner-description {
+	width:450px;
+    height:80px;
+    position:absolute;
+    top:0;
+    left:5px;
+    text-align: left;
+    color:#686c70;
+}
 .text {
     margin: 7px;
 }
