@@ -82,7 +82,6 @@ a {
 }
 
 #center-container {
-    width:850px;
 	width:700px;
     left:0px;
     background-color:#e4dcce;
@@ -90,14 +89,15 @@ a {
 }
 
 #inner-description {
-	font-size: 0.9em;
+	font-size: 1.05em;
 	margin:5px;
 	text-align: left;
     color:#686c70;
 	border:1px solid #FFFFFF;
 	background-color:#F7F2E0;
 	width:170px;
-	height:350px;
+	height:380px;
+	padding:7px;
 	/*width:450px;
     height:80px;
     position:absolute;
@@ -141,9 +141,12 @@ a {
 }
 
 #people-circle {
-        
+  /*background:url(../images/circle_project.png) left top no-repeat; */
+  display:block; width: auto;}
 }
 
+div.node{word-wrap: break-word;}
+	
 /*TOOLTIPS*/
 .tip {
     color: #111;
