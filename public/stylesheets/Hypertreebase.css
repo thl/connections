@@ -96,7 +96,8 @@ a {
 	border:1px solid #FFFFFF;
 	background-color:#F7F2E0;
 	width:170px;
-	height:380px;
+	/*height:380px;*/
+	height:auto;
 	padding:7px;
 	/*width:450px;
     height:80px;
@@ -140,9 +141,19 @@ a {
     overflow:hidden;
 }
 
+#inner-legend{font-size:1.3em;}
 #people-circle {
-  /*background:url(../images/circle_project.png) left top no-repeat; */
-  display:block; width: auto;}
+  background:url(../images/blue.gif) left top no-repeat; 
+  display:block; width: auto;height:16px;
+}
+
+#project-circle {
+  background:url(../images/green.gif) left top no-repeat; 
+  display:block; width: auto;height:16px;font-size:1.0em;
+}
+#organization-circle {
+  background:url(../images/brown.gif) left top no-repeat; 
+  display:block; width: auto;height:16px;font-size:1.0em;
 }
 
 div.node{word-wrap: break-word;}
