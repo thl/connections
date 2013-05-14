@@ -164,7 +164,8 @@ body.details #main-content.narrow ul li{ margin-left:10px; line-height:1.39em; m
 
 
 /* Gallery */
-.profile-block-wrapper{ float:left; overflow:hidden; width:418px; padding:0px 20px 20px 0px}
+/*.profile-block-wrapper{ float:left; overflow:hidden; width:418px; padding:0px 20px 20px 0px}*/
+.profile-block-wrapper{ float:left; overflow:hidden; width:418px; padding:0px 12px 20px 0px}
 .profile-block-wrapper.alt{    padding:0px 0px 20px 20px;  background:url(../images/dots_vert.gif) no-repeat left top}
 .profile-block{ overflow:hidden; padding:3px 7px 15px; background:url(../images/dots.gif) repeat-x left bottom; height:70px}
 .profile-block-main{    margin-left:80px}
@@ -190,6 +191,9 @@ body.details #main-content.narrow ul li{ margin-left:10px; line-height:1.39em; m
 /* IE6 hack via conditional */
 #ie-root-lte7 #relationships-tab .gallery-button{ margin-top:10px;  margin-bottom:20px;  overflow:visible}
 
+/*---- Gallery inside UI dialog adjustments --
+#popup_dialog.profile-block-wrapper{ float:left; overflow:hidden; width:418px; padding:0px 12px 20px 0px !important;}
+*/
 
 /* --- Float Clearing -----------*/
 .clearfloat:after{ display:block;  visibility:hidden;  clear:both;  height:0;  content:"."}
