@@ -10,7 +10,9 @@ gem 'hpricot', '>= 0.8.6'
 gem 'rack-openid', :require => 'rack/openid'
 gem 'will_paginate', '~> 3.0'
 #gem 'jquery-rails', '>= 1.0.12'
-gem 'tiny_mce'
+
+#gem 'tiny_mce'
+
 gem 'memcache-client'
 gem 'newrelic_rpm'
 gem 'exception_notification'
@@ -29,7 +31,7 @@ gem "recaptcha", :require => "recaptcha/rails"
 gem 'RedCloth', '~> 3.0.4' #, :lib=>"redcloth"
 gem 'solr-ruby', '~> 0.0.7'#, :lib => "solr"
 
-gem 'jquery-rails', '0.2.7'
+gem 'jquery-rails'#, '0.2.7'
 
 # Use unicorn as the web server
 # gem 'unicorn'

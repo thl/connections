@@ -341,6 +341,10 @@ body #main-content-wrapper #main #relationships-tab table.entity-list-table td d
 body.details h3{ font-size:1.88em; font-weight:normal; color:#415c7e; margin-top:15px; padding-left:0;}
 body.details h3#title{ font-size:1.56em; color:#555; font-weight:bold; margin-bottom:10px; }/* people profile title below name */
 
+/* styles for Ui dialog on Join Projects/Organizations */
+body.details #popup_dialog h3{ margin:0 0 5px; padding:0; font-size:1.44em;}
+
+
 body.details #interests h3{margin-top:15px;font-size:1.63em; color:#335890; letter-spacing:0.06em; font-family:arial, verdana, sans-serif; font-weight:normal; margin-left:5px;}
 /*body.details #interests-tab{ width:555px;}
 body.details #profile-tab{ width:555px;}
