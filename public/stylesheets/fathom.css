@@ -203,11 +203,11 @@ body.details #main-content.narrow ul li{ margin-left:10px; line-height:1.39em; m
 
 
 /* auto-complete/tag fields */
-#interests-tab input.ac_input{ width:530px}
-#profile-tab input.ac_input{ width:530px}
-#description-tab input.ac_input{ width:530px}
-#technology-tab input.ac_input{ width:530px}
-#support-tab input.ac_input{ width:530px}
+#interests-tab input.ui-autocomplete-input{ width:530px}
+#profile-tab input.ui-autocomplete-input{ width:530px}
+#description-tab input.ui-autocomplete-input{ width:530px}
+#technology-tab input.ui-autocomplete-input{ width:530px}
+#support-tab input.ui-autocomplete-input{ width:530px}
 #searchForm{ margin-bottom:.5em;  margin-top:1em}
 #searchForm input#s{ width:370px}
 
