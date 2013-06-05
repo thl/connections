@@ -506,23 +506,23 @@ body #secondary-nav span.nav-sort-by{ font-weight:bold; font-size:12px; color:#7
 #secondary-nav{ padding-left:10px; background:url(../images/bg_secondary_nav_tile.gif) repeat-x left bottom; margin:0px 0 15px; }
 
 /* breaks TinyMCE#secondary-nav span{padding:6px 18px 0px 0px}*/
-#secondary-nav ul.yui-nav{ overflow:hidden; list-style:none; padding-top:0px;margin-top:4px;margin-left:60px;}
+#secondary-nav > ul{ overflow:hidden; list-style:none; padding-top:0px;margin-top:4px;margin-left:60px;}
 
-#secondary-nav ul.yui-nav li{ float:left; font-weight:bold; margin-bottom:-2px;}
+#secondary-nav > ul li{ float:left; font-weight:bold; margin-bottom:-2px;}
 
-#secondary-nav ul.yui-nav li a,
-#secondary-nav ul.yui-nav li a:visited{ display:block; text-decoration:none; color:#fff; border:3px double #fff;border-bottom-width:0px;padding:3px 16px 1px; margin-right:2px; margin-top:1px;font-size:11px;
+#secondary-nav > ul li a,
+#secondary-nav > ul li a:visited{ display:block; text-decoration:none; color:#fff; border:3px double #fff;border-bottom-width:0px;padding:3px 16px 1px; margin-right:2px; margin-top:1px;font-size:11px;
 font-weight:normal;letter-spacing:0.12em;font-family:"Lucida Grande","Trebuchet MS",arial,helvetica;background:#607ca5 url(../images/bg-secondary-tabs.gif) repeat-x 0px 0px;}
 
-#secondary-nav ul.yui-nav li a:hover{ background:#466592 url(../images/bg-secondary-tabs.gif) repeat-x 0px -33px;}
-#secondary-nav ul.yui-nav li a:active{ background:#667996 url(../images/bg-secondary-tabs.gif) repeat-x 0px 0px;}
+#secondary-nav > ul li a:hover{ background:#466592 url(../images/bg-secondary-tabs.gif) repeat-x 0px -33px;}
+#secondary-nav > ul li a:active{ background:#667996 url(../images/bg-secondary-tabs.gif) repeat-x 0px 0px;}
 
-#secondary-nav ul.yui-nav li.current_page_item a,
-#secondary-nav ul.yui-nav li.current_page_item a:visited, 
-#secondary-nav ul.yui-nav li.current_page_ancestor a,
-#secondary-nav ul.yui-nav li.current_page_ancestor a:visited,
-#secondary-nav ul.yui-nav li.selected a, 
-#secondary-nav ul.yui-nav li.selected a:visited{ font-size:12px;font-weight:bold;border:1px solid #aaa;border-bottom-color:#fff;background-image:none; background-color:#fff;background:#fff url(../images/bg-secondary-tabs.gif) repeat-x 0px -66px;padding-bottom:5px;padding-top:5px; margin-top:0;color:#415c7e;letter-spacing:0.06em;
+#secondary-nav > ul li.current_page_item a,
+#secondary-nav > ul li.current_page_item a:visited, 
+#secondary-nav > ul li.current_page_ancestor a,
+#secondary-nav > ul li.current_page_ancestor a:visited,
+#secondary-nav > ul li.selected a, 
+#secondary-nav > ul li.selected a:visited{ font-size:12px;font-weight:bold;border:1px solid #aaa;border-bottom-color:#fff;background-image:none; background-color:#fff;background:#fff url(../images/bg-secondary-tabs.gif) repeat-x 0px -66px;padding-bottom:5px;padding-top:5px; margin-top:0;color:#415c7e;letter-spacing:0.06em;
 -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-left-radius: 5px; -moz-border-radius-topright: 5px; /* Firefox */ -webkit-border-top-right-radius: 5px; /* Safari */ border-top-right-radius: 5px; /* CSS3 (Opera?) */}
 
 /*---- thickbox popup for editing profile photos ---*/

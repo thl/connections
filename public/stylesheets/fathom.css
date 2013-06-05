@@ -218,10 +218,10 @@ body.details #main-content.narrow ul li{ margin-left:10px; line-height:1.39em; m
 /* secondary nav(tab buttons) */
 #secondary-nav{ padding-left:10px; background:url(../images/bg_secondary_nav_tile.gif) repeat-x left bottom;  margin:5px 0 15px 0;  font-size:90%;  font-family:"Lucida Grande","Trebuchet MS",arial,helvetica}
 /* breaks TinyMCE#secondary-nav span{padding:6px 18px 0px 0px}*/
-#secondary-nav ul.yui-nav{ overflow:hidden; list-style:none; padding-top:0px}
-#secondary-nav ul.yui-nav li{ float:left; font-weight:bold; margin-bottom:-1px}
-#secondary-nav ul.yui-nav li a{ display:block; text-decoration:none; color:#fff; padding:5px 18px 5px; margin-right:3px; background:#568ea7 url(../images/tab-corner.gif) no-repeat scroll right top}
-#secondary-nav u.yui-navl li a:hover, #secondary-nav ul.yui-nav li.current_page_item a, #secondary-nav ul.yui-nav li.current_page_ancestor a,
-#interior ul.yui-nav li.selected a{ background:#265b79 url(../images/tab-corner-select.gif) no-repeat scroll right top;     color:#fff}
+#secondary-nav > ul{ overflow:hidden; list-style:none; padding-top:0px}
+#secondary-nav > ul li{ float:left; font-weight:bold; margin-bottom:-1px}
+#secondary-nav > ul li a{ display:block; text-decoration:none; color:#fff; padding:5px 18px 5px; margin-right:3px; background:#568ea7 url(../images/tab-corner.gif) no-repeat scroll right top}
+#secondary-nav > ul li a:hover, #secondary-nav > ul li.current_page_item a, #secondary-nav > ul li.current_page_ancestor a,
+#interior > ul li.selected a{ background:#265b79 url(../images/tab-corner-select.gif) no-repeat scroll right top;     color:#fff}
 
 
